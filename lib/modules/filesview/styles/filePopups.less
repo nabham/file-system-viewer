@@ -1,0 +1,144 @@
+@import '~styles/theme.less';
+
+@popupWidth: 320px;
+@popupHeight: 450px;
+
+.base-button {
+  border: 0px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  background-color: transparent;
+}
+
+.column-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.arial-family {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.create-container {
+  
+  position: relative;
+  .column-flex();
+  .arial-family();
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid rgba(221,224,228,0.70);
+  height: @popupHeight;
+  width: @popupWidth;
+  box-shadow: 0 16px 64px 0 rgba(0,0,0,0.08);
+  background-color: @app-bg;
+
+  .close-button {
+    .base-button();
+    font-size: 22px;
+    padding: 2px;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+  }
+
+  input[type="radio"] {
+    display: none;
+    height: 30px;
+
+    &:checked + label {
+      background-color: #4AB7FF;
+      color: #FFFFFF;
+    }
+  }
+
+  input[type="radio"] + label {
+    text-align: center;
+    cursor: pointer;
+    padding: 7px 10px;
+    box-sizing: border-box;
+    width: calc(128px / 2);
+    font-size: 14px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    color: #535B62;
+
+    &:first-of-type {
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      border-right: 0px;
+    }
+
+    &:last-of-type {
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+  }
+
+  .form-group {
+    .column-flex();
+    margin-top: 24px;
+    
+
+    input[type="text"], input[type="number"], input[type="date"] {
+      margin: 8px auto;
+      height: 40px;
+      width: 220px;
+      border-radius: 8px;
+      background: #FFFFFF;
+      border: 1px solid #DDE0E4;
+      padding-left: 10px;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    button {
+      .base-button();
+      background-color: #4AB7FF;
+      margin: 8px auto;
+      width: 220px;
+      border-radius: 8px;
+      height: 40px;
+      color: #FFFFFF;
+    }
+
+  }
+}
+
+.info-group {
+
+  .column-flex();
+  width: 90%;
+
+  & > div {
+    margin-top: 24px;
+    display: flex;
+
+    span {
+      width: 50%;
+      font-size: 16px;
+    }
+
+    span:first-of-type {
+      text-align: right;
+      color: #2F363F;
+    }
+
+    span:last-of-type {
+      text-align: left;
+      padding-left: 10px;
+      color: #81878C;
+    }
+  }
+}
+
+.popup-image {
+  padding: 12px 22px;
+  height: 110px;
+  width: 110px;
+  box-sizing: border-box;
+
+}

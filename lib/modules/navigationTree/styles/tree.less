@@ -1,0 +1,55 @@
+@import '~styles/theme.less';
+
+@tree-child-diff: 20px;
+
+.tree-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: @tree-width;
+  height: 100%;
+  overflow: auto;
+  background-color: #F9FAFC;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+
+  .tree-parent {
+    position: relative;
+  }
+
+  .tree-child {
+    border-left: 2px solid #EEEFF1;;
+    margin-left: @tree-child-diff;
+  }
+
+  .tree-node {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: @tree-child-diff;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: #EEEFF1;
+    }
+
+    span {
+      flex-grow: 8;
+      display: flex;
+
+      img {
+        height: auto;
+        width: auto;
+        max-width: 15px;
+        max-height: 15px;
+        margin-right: 6px;
+      }
+    }
+
+    & > img {
+      flex-grow: 2;
+    }
+  }
+
+}

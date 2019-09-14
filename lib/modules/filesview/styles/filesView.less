@@ -1,0 +1,120 @@
+@import '~styles/theme.less';
+
+@view-height: calc(100% - @header-height);
+@file-container-width: 96px;
+@file-container-height: 115px;
+
+.asset-containers {
+  height: @file-container-height;
+  width: @file-container-width;
+  box-sizing: border-box;
+  cursor: pointer;
+  margin: 20px 24px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.container {
+  position: absolute;
+  top: @header-height;
+  left: @tree-width;
+  width: @view-width;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.file-container {
+
+  .asset-containers();
+  position: relative;
+  flex-direction: column;
+  padding: 10px;
+  transition: background-color 0.2s linear;
+
+  &:hover {
+    background-color: @dir-bg;
+  }
+
+  img {
+    display: block;
+    height: 75px;
+  }
+
+  & > div {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    letter-spacing: 0;
+    color: #535B62;
+    margin-top: 10px;
+  }
+
+  span {
+    position: absolute;
+    top: 60px;
+    left: 25px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    letter-spacing: 0;
+  }
+}
+
+.directory-container {
+
+  .file-container();
+
+  img {
+    height: 53px;
+    padding-top: 11px;
+    padding-bottom: 8px;
+  }
+}
+
+.addnew-container {
+  .asset-containers();
+  border: 2px #ccc dashed;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: bolder;
+  color: #ccc;
+}
+
+.file-menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: calc(@file-container-height - 15px);
+  left: calc(@file-container-width - 20px);
+  width: 160px;
+  overflow: hidden;
+  box-shadow: 0px 0px 5px #ccc;
+  margin: 0px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  transition: all .1s ease-out;
+  transform: scale(0) translate(-200px, -100px);
+
+  &:focus {
+    outline: none;
+    transform: scale(1) translate(0 ,0);
+  }
+
+  button {
+    border: 0;
+    border-radius: 5px;
+    background-color: @app-bg;
+    height: 40px;
+    padding: 12px 24px;
+    text-align: left;
+    transition: background-color 0.2s linear;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #535B62;
+
+    &:hover {
+      background-color: #EEEFF1;
+    }
+  }
+}
