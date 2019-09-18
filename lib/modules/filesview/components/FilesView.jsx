@@ -41,7 +41,8 @@ class FilesView extends React.Component {
     super(props);
 
     this.state = {
-      popup: false
+      popup: false,
+      conflict: ''
     };
 
     this.menuItemClick = this.menuItemClick.bind(this);
@@ -75,9 +76,21 @@ class FilesView extends React.Component {
     this.setState({ popup: 'create' });
   }
 
-  handleNewAsset(asset, type) {
-    (type === 'file' ? this.props.triggerFileCreate(asset) : this.props.triggerDirectoryCreate(asset));
-    this.closePopUp();
+  handleNewAsset(asset, type, isForce) {
+    const existingAsset = this.props.app.currentView.find(existingAsset => existingAsset.name === asset.name);
+    if (!isForce && existingAsset) {
+      this.setState({ conflict: 'Name conflict' });
+    } else {
+      // If asset already exists and force is true, delete the existing asset
+      if (existingAsset) {
+        (existingAsset.isFile ? this.props.triggerFileDelete(existingAsset.id) : this.props.triggerDirectoryDelete(existingAsset.id));
+      }
+      if (this.state.conflict) {
+        this.setState({ conflict: '' });
+      }
+      (type === 'file' ? this.props.triggerFileCreate(asset) : this.props.triggerDirectoryCreate(asset));
+      this.closePopUp();
+    }
   }
 
   closePopUp() {
@@ -96,7 +109,7 @@ class FilesView extends React.Component {
 
         <Popup visible={this.state.popup} onlyChild={true}>
           {
-            this.state.popup === 'create' && <CreateAsset onClose={this.closePopUp} onCreateNew={this.handleNewAsset} />
+            this.state.popup === 'create' && <CreateAsset onClose={this.closePopUp} onCreateNew={this.handleNewAsset} conflict={this.state.conflict} />
           }
           {
             this.state.popup === 'info' && <FileInfo {...this.props.app.details} onClose={this.closePopUp} />

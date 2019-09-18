@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import '../styles/filePopups.less';
+import { getExtension } from 'common/utilities/basic';
 
 ////////////////////////////////// POPUP WRAPPER ///////////////////////////////////
 
@@ -40,7 +41,10 @@ export const FileInfo = (props) => {
       <div className="popup-image">
         {
           props.isFile ?
-            <img src="/images/file.png" alt="file" /> :
+            <React.Fragment>
+              <img src="/images/file.png" alt="file" />
+              <span>{getExtension(props.name)}</span>
+            </React.Fragment> :
             <img src="/images/dir.png" alt="directory" />
         }
       </div>
@@ -90,10 +94,14 @@ export const CreateAsset = (props) => {
   let [createdTs, setCreatedTs] = useState('');
   let [size, setSize] = useState('');
 
-  function handleCreate() {
+  function handleCreate(event, isForce = false) {
     if (name && size && createdBy) {
-      props.onCreateNew({ name, createdBy, createdTs: createdTs || (new Date()), size }, type);
+      props.onCreateNew({ name, createdBy, createdTs: createdTs || (new Date()), size }, type, isForce);
     }
+  }
+
+  function handleForceUpdate() {
+    handleCreate(null, true);
   }
 
   return (
@@ -110,6 +118,12 @@ export const CreateAsset = (props) => {
         <input type="number" placeholder="Size" onChange={(e) => setSize(e.target.value)} value={size} required />
         <input type="text" placeholder="Date" onChange={(e) => setCreatedTs(e.target.value)} value={createdTs} required />
         <button onClick={handleCreate}>Create</button>
+        {
+          props.conflict &&
+          <div className="conflict danger">{type === 'file' ? 'File' : 'Folder'} name already exists. Do you want to overwrite ? Overwrite will cause deletion of existing {type === 'file' ? 'file' : 'folder'}.
+            <span className="conflict-btn hand" onClick={handleForceUpdate}>Yes</span>
+          </div>
+        }
       </div>
     </PopUpWrapper>
   );
@@ -117,6 +131,7 @@ export const CreateAsset = (props) => {
 
 CreateAsset.propTypes = {
   onCreateNew: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  conflict: PropTypes.string
 };
 /////////////////////////////////////////////////////////////////////////////

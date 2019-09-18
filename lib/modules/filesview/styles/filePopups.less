@@ -1,4 +1,5 @@
 @import '~styles/theme.less';
+@import './filesView.less';
 
 @popupWidth: 320px;
 @popupHeight: 450px;
@@ -105,6 +106,15 @@
       color: #FFFFFF;
     }
 
+    .conflict {
+      width: 220px;
+      font-size: 12px;
+
+      span {
+        color: blue;
+        text-decoration: underline;
+      }
+    }
   }
 }
 
@@ -140,5 +150,10 @@
   height: 110px;
   width: 110px;
   box-sizing: border-box;
+  position: relative;
+
+  span {
+    .image-extension();
+  }
 
 }

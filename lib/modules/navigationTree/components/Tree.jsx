@@ -30,7 +30,7 @@ const TreeNode = (props) => {
     <div className={`tree-node ${props.child ? 'hand' : ''}`} onClick={handleNodeClick}>
       <span>
         <img src={props.child ? '/images/dir.png' : '/images/file.png'} />
-        <span>{props.name}</span>
+        <span className="font16">{props.name}</span>
       </span>
       {
         hasChild && <img src="http://nosmalltask2.s3-website.ap-south-1.amazonaws.com/assets/icons/functional/dropdown.svg" onClick={handleToggle} className={props.expanded ? 'rotate180' : ''} />

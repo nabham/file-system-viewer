@@ -102,6 +102,10 @@ export const File = (props) => {
     props.menuItemClick(type, props.id, props.isFile);
   }
 
+  function handleDblClick() {
+    props.menuItemClick('open', props.id, props.isFile);
+  }
+
   return (
     <React.Fragment>
       {
@@ -111,7 +115,7 @@ export const File = (props) => {
             <span>{getExtension(props.name)}</span>
           </div>
           :
-          <div className="directory-container" onContextMenu={fileSelected}>
+          <div className="directory-container" onContextMenu={fileSelected} onDoubleClick={handleDblClick}>
             <ImageContainer {...props} menu={menu} closeMenu={closeMenu} optionClick={optionClick} />
           </div>
       }
